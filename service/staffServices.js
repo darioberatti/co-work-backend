@@ -44,8 +44,6 @@ class Staff {
   
       if (!user) throw new Error("Usuario no encontrado");
   
-      console.log("USER DATA >>>>", userData);
-
       const result = await user.update(userData, { returning: true });
   
       return result;
