@@ -23,7 +23,7 @@ app.use(
 
 app.use("/", routes);
 
-db.sync({ force: true })
+db.sync({ force: false })
   .then(() => {
     console.log("DB Connected");
     app.listen(port, () => console.log(`Servidor escuchando ${port}`));
