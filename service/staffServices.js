@@ -1,9 +1,10 @@
 const Users = require("../models/Users");
 
+
 class Staff {
   static async showAll() {
     try {
-      return Users.findAll();
+      return Users.findAll({include:"role"});
     } catch (error) {
       throw new Error(error);
     }
