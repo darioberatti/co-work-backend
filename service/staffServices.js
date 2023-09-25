@@ -1,8 +1,9 @@
 const Users = require("../models/Users");
+const Roles = require("../models/Roles");
 
 class Staff {
   static async showAll() {
-    return Users.findAll();
+    return Users.findAll({ include: "role" });
   }
 
   static async showByPk(userId) {
@@ -21,7 +22,7 @@ class Staff {
   }
 
   static async edit(userData, userId) {
-    const user = await Users.findByPk(userId);
+    const user = await Users.findByPk(userId, { include: "role" });
     const result = await user.update(userData, { returning: true });
     return result;
   }

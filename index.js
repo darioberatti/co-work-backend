@@ -8,20 +8,28 @@ const db = require("./config/db/db");
 const routes = require("./routes");
 const { models } = require("./models");
 
-const port = process.env.PORT || 5432;
+const port = process.env.PORT;
 
 app.use(express.json());
 
 app.use(cookieParser());
 app.use(
   cors({
-    origin: process.env.ORIGIN || "https://co-work-p5-frontend.vercel.app",
+    origin: process.env.ORIGIN,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
 );
 
 app.use("/", routes);
+
+// Validacion variables de entorno
+const requiredEnvVariables = ['FRONT_END_PORT', 'PORT', 'ORIGIN', 'SECRET', 'USER', 'PASSWORD', 'HOST', 'EMAIL_ADMIN', 'PASS_ADMIN'];
+const missingEnvVariables = requiredEnvVariables.filter((variable) => !process.env[variable]);
+if (missingEnvVariables.length > 0) {
+  console.error(`Faltan variables de entorno requeridas: ${missingEnvVariables.join(', ')}`);
+  process.exit(1);
+}
 
 db.sync({ force: false })
   .then(() => {
