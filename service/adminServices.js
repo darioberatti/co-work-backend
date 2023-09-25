@@ -1,21 +1,12 @@
 const Offices = require("../models/Offices");
 
 class Admin {
-
   static async showAll() {
-    try {
-      return Offices.findAll();
-    } catch (error) {
-      throw new Error(error);
-    }
+    return Offices.findAll();
   }
 
   static async showByPk(officeId) {
-    try {
-      return Offices.findByPk(officeId);
-    } catch (error) {
-      throw new Error(error);
-    }
+    return Offices.findByPk(officeId);
   }
 
   static async add(
@@ -23,31 +14,22 @@ class Admin {
     address,
     city,
     country,
+    openingTime,
+    closingTime,
     floors,
+    phoneNumber
   ) {
-    try {
-      if (
-        !name ||
-        !address ||
-        !city ||
-        !country ||
-        !floors
-      ) {
-        res.status(400).json({ error: "Todos los campos son requeridos" });
-      }
-
-      return Offices.create({
-        name,
-        address,
-        city,
-        country,
-        floors,
-      })
-    } catch (error) {
-      throw new Error(error);
-    }
+    return Offices.create({
+      name,
+      address,
+      city,
+      country,
+      openingTime,
+      closingTime,
+      floors,
+      phoneNumber,
+    });
   }
-  
 }
 
 module.exports = { Admin };

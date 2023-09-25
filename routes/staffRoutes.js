@@ -9,11 +9,12 @@ router.get("/users", listUsers);
 router.get("/users/:userId", getUserById);
 
 //Ruta para crear un usuario.
-router.post("/users/add", addUser)
+router.post("/users", addUser)
 
 //Ruta para editar cualquier campo del usuario.
-router.put("/users/edit/:userId", editUser)
+router.put("/users/:userId", editUser)
 
+//Ruta para que el usuario genere su password.
 router.post("/users/set-password", setPassword)
 
 module.exports = router;
