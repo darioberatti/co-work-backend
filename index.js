@@ -8,14 +8,14 @@ const db = require("./config/db/db");
 const routes = require("./routes");
 const { models } = require("./models");
 
-const port = process.env.PORT || 5432;
+const port = process.env.PORT;
 
 app.use(express.json());
 
 app.use(cookieParser());
 app.use(
   cors({
-    origin: process.env.ORIGIN || "https://co-work-p5-frontend.vercel.app",
+    origin: process.env.ORIGIN,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
