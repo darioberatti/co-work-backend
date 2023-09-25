@@ -1,3 +1,5 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const { Staff } = require("../service/staffServices");
 const { generateToken, validateToken } = require("../config/tokens");
 const transporter = require("../config/mailer");
@@ -27,6 +29,7 @@ exports.getUserById = async (req, res) => {
 
 exports.addUser = async (req, res) => {
   const { name, lastName, DNI, age, email, course } = req.body;
+  const originUrl = process.env.ORIGIN;
 
   try {
     if (!name || !lastName || !DNI || !age || !email || !course) {
@@ -41,8 +44,9 @@ exports.addUser = async (req, res) => {
       from: '"Retro Futbol Club" <e.retrofutbolclub@gmail.com>', // sender address
       to: payload.email, // list of receivers
       subject: "Confirmacion de registro de usuario", // Subject line
-      html: `<h2>Hola ${payload.email}! Tu usuario se registro con éxito</h2>
-            <a href=http://localhost:3000/confirm-user/${registerToken}>Redirigir al sitio:</a>
+      html: `<h2>Hola ${payload.email}! Tu usuario fué dado de alta en Co-Work P5!</h2>
+            <h3>Para completar tu registro debes ingresar al siguiente link y establecer tu contraseña:</h3>
+            <h3><a href=${originUrl}/confirm-user/${registerToken}>Redirigir al sitio</a></h3>
             <h4><b>Muchisimas gracias!</b></h4>`,
     });
     res.status(201).send(result);
