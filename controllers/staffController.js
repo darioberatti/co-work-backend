@@ -1,3 +1,5 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const { Staff } = require("../service/staffServices");
 const { generateToken, validateToken } = require("../config/tokens");
 const transporter = require("../config/repositories/mailer");
@@ -27,6 +29,7 @@ exports.getUserById = async (req, res) => {
 
 exports.addUser = async (req, res) => {
   const { name, lastName, DNI, age, email, course } = req.body;
+  const originUrl = process.env.ORIGIN;
 
   try {
     if (!name || !lastName || !DNI || !age || !email || !course) {
