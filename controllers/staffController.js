@@ -37,6 +37,8 @@ exports.addUser = async (req, res) => {
     const payload = { userId: result.id, email: result.email };
     const registerToken = generateToken(payload);
 
+    // console.log("REGISTERTOKEN ---> ", registerToken)
+
     transporter.sendMail({
       from: '"Retro Futbol Club" <e.retrofutbolclub@gmail.com>', // sender address
       to: payload.email, // list of receivers
