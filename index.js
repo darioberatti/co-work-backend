@@ -24,10 +24,23 @@ app.use(
 app.use("/", routes);
 
 // Validacion variables de entorno
-const requiredEnvVariables = ['FRONT_END_PORT', 'PORT', 'ORIGIN', 'SECRET', 'USER', 'PASSWORD', 'HOST', 'EMAIL_ADMIN', 'PASS_ADMIN'];
-const missingEnvVariables = requiredEnvVariables.filter((variable) => !process.env[variable]);
+const requiredEnvVariables = [
+  "PORT",
+  "ORIGIN",
+  "SECRET",
+  "USER",
+  "PASSWORD",
+  "HOST",
+  "EMAIL_ADMIN",
+  "PASS_ADMIN",
+];
+const missingEnvVariables = requiredEnvVariables.filter(
+  (variable) => !process.env[variable]
+);
 if (missingEnvVariables.length > 0) {
-  console.error(`Faltan variables de entorno requeridas: ${missingEnvVariables.join(', ')}`);
+  console.error(
+    `Faltan variables de entorno requeridas: ${missingEnvVariables.join(", ")}`
+  );
   process.exit(1);
 }
 
