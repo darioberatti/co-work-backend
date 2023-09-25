@@ -9,6 +9,6 @@ router.get("/offices", listOffices);
 router.get("/offices/:officeId", getOfficeById);
 
 //Ruta para agregar una nueva oficina.
-router.post("/offices/add", addOffice)
+router.post("/offices", addOffice)
 
 module.exports = router;
