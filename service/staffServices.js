@@ -3,7 +3,7 @@ const Users = require("../models/Users");
 class Staff {
   static async showAll() {
     try {
-      return Users.findAll();
+      return Users.findAll({ include: "role" });
     } catch (error) {
       throw new Error(error);
     }
@@ -11,7 +11,7 @@ class Staff {
 
   static async showByPk(userId) {
     try {
-      return Users.findByPk(userId);
+      return Users.findByPk(userId, { include: "role" });
     } catch (error) {
       throw new Error(error);
     }
@@ -30,9 +30,8 @@ class Staff {
         age,
         email,
         course,
+        roleId: 3,
       });
-
-
     } catch (error) {
       throw new Error(error);
     }
@@ -41,13 +40,12 @@ class Staff {
   static async edit(userId, userData) {
     try {
       const user = await Users.findByPk(userId);
-  
-      if (!user) throw new Error("Usuario no encontrado");
-  
-      const result = await user.update(userData, { returning: true });
-  
-      return result;
 
+      if (!user) throw new Error("Usuario no encontrado");
+
+      const result = await user.update(userData, { returning: true });
+
+      return result;
     } catch (error) {
       throw new Error(error);
     }
