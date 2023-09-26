@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const { Staff } = require("../service/staffServices");
 const { generateToken, validateToken } = require("../config/tokens");
-const transporter = require("../config/repositories/mailer");
+const {sendEmail} = require("../config/repositories/mailer");
 
 exports.listUsers = async (req, res) => {
   try {
@@ -29,8 +29,7 @@ exports.getUserById = async (req, res) => {
 
 exports.addUser = async (req, res) => {
   const { name, lastName, DNI, age, email, course } = req.body;
-  const originUrl = process.env.ORIGIN;
-
+  
   try {
     if (!name || !lastName || !DNI || !age || !email || !course) {
       return res.status(400).send("Todos los campos son requeridos");
@@ -40,7 +39,7 @@ exports.addUser = async (req, res) => {
     const payload = { userId: result.id, email: result.email };
     const registerToken = generateToken(payload);
 
-    transporter.sendMail(payload.email, registerToken);
+    sendEmail(payload.email, registerToken);
 
     res.status(201).send(result);
   } catch (error) {
