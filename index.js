@@ -44,7 +44,7 @@ if (missingEnvVariables.length > 0) {
   process.exit(1);
 }
 
-db.sync({ force: true })
+db.sync({ force: false })
   .then(() => {
     console.log("DB Connected");
     app.listen(port, () => console.log(`Servidor escuchando ${port}`));
