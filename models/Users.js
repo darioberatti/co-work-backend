@@ -19,15 +19,28 @@ User.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        is: {
+          args: /^[A-Za-z\s]+$/, // Expresión regular que permite letras y espacios
+          msg: 'El nombre solo debe contener letras y espacios.',
+        },
+      },
     },
     lastName: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        is: {
+          args: /^[A-Za-z\s]+$/, // Expresión regular que permite letras y espacios
+          msg: 'El apellido solo debe contener letras y espacios.',
+        },
+      },
     },
     DNI: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
+        // will only allow numbers & only allow values with length between 8 and 8
         isNumeric: true,
         len: [8, 8],
       },
@@ -35,17 +48,26 @@ User.init(
     age: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        // will only allow numbers
+        isNumeric: true,
+      },
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
+        // checks for email format (foo@bar.com)
         isEmail: true,
       },
     },
     password: {
       type: DataTypes.STRING,
+      validate: {
+        // Will only allow values with minimum length of 6 characters
+        len: [6, Infinity],
+      },
     },
     salt: {
       type: DataTypes.STRING,
@@ -55,10 +77,11 @@ User.init(
       allowNull: false,
     },
     status: {
-      type: DataTypes.STRING,
+      // // An ENUM with allowed values 'pending', 'enabled' and 'disabled'
+      type: DataTypes.ENUM,
       defaultValue: "pending",
+      values: ["pending", "enabled", "disabled"]
     },
-    
   },
   {
     sequelize: db,
