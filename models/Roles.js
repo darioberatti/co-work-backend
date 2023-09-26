@@ -6,8 +6,10 @@ class Roles extends Model {}
 Roles.init(
   {
     name: {
-      type: DataTypes.STRING,
+      // // An ENUM with allowed values 'pending', 'enabled' and 'disabled'
+      type: DataTypes.ENUM,
       allowNull: false,
+      values: ["staff", "admin", "student"]
     },
   },
   { sequelize: db, modelName: "roles" }
