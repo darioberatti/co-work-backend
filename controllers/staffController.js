@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const { Staff } = require("../service/staffServices");
 const { generateToken, validateToken } = require("../config/tokens");
-const {sendEmail} = require("../config/repositories/mailer");
+const { sendEmail } = require("../config/repositories/mailer");
 
 exports.listUsers = async (req, res) => {
   try {
@@ -29,7 +29,7 @@ exports.getUserById = async (req, res) => {
 
 exports.addUser = async (req, res) => {
   const { name, lastName, DNI, age, email, course } = req.body;
-  
+
   try {
     if (!name || !lastName || !DNI || !age || !email || !course) {
       return res.status(400).send("Todos los campos son requeridos");
@@ -69,7 +69,7 @@ exports.setPassword = async (req, res) => {
 
     const userData = { password: password, status: "enabled" };
 
-    const result = await Staff.edit(userData, userId);
+    const result = await Staff.edit(userId, userData);
 
     res.status(200).send(result);
   } catch (error) {
