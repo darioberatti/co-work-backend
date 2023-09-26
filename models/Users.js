@@ -99,4 +99,24 @@ User.beforeUpdate((user) => {
   }
 });
 
+// User.beforeBulkCreate((user) => {
+//   if (user.password) {
+//     console.log("Entro a before Bulk create");
+//     const salt = bcrypt.genSaltSync();
+//     user.salt = salt;
+//     return user.hash(user.password, salt).then((hash) => {
+//       user.password = hash;
+//     });
+//   }
+// });
+
+
+User.beforeBulkCreate((users) => {
+  return Promise.all(users.map(async (user) => {
+    const salt = bcrypt.genSaltSync();
+    user.salt = salt;
+    user.password = await user.hash(user.password, salt);
+  }));
+});
+
 module.exports = User;

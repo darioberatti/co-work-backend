@@ -32,7 +32,7 @@ exports.login = async (req, res) => {
     res.cookie("token", token);
     res.send(payload);
   } catch (error) {
-    res.status(400).send("Error de logueo: ", error);
+    res.status(400).send(error);
   }
 };
 
