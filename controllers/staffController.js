@@ -51,7 +51,7 @@ exports.editUser = async (req, res) => {
   const { userId } = req.params;
 
   try {
-    const result = await Staff.edit(req.body, userId);
+    const result = await Staff.edit(userId, req.body);
     if (!result) return res.status(400).send("Usuario no encontrado");
     res.status(200).send(result);
   } catch (error) {
