@@ -32,6 +32,7 @@ async function seedDataBase() {
         salt: "",
         course: "admin",
         roleId: 1,
+        status: "enabled"
       },
       {
         name: "Pedro",
@@ -43,6 +44,7 @@ async function seedDataBase() {
         salt: "",
         course: "Julio 2023",
         roleId: 3,
+        status: "enabled"
       },
     ]);
   } catch (error) {
