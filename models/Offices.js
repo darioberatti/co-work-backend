@@ -62,7 +62,7 @@ Offices.init(
       },
     },
     phoneNumber: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
     },
   },
   { sequelize: db, modelName: "offices" }
