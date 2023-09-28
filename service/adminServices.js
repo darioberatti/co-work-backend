@@ -47,6 +47,20 @@ class Admin {
       urlImg,
     });
   }
+
+  static async edit(officeId, officeData) {
+    try {
+      const office = await Offices.findByPk(officeId);
+
+      if (!office) throw new Error("Usuario no encontrado");
+
+      const result = await office.update(officeData, { returning: true });
+
+      return result;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
 
 module.exports = { Admin };
