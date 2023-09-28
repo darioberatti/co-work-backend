@@ -57,7 +57,7 @@ async function seedDataBase() {
         country: "Argentina",
         openingTime: "9 hs",
         closingTime: "18 hs",
-        floors: 1,
+        floorsNumber: 1,
         phoneNumber: 1176103130,
         urlImg: [
           "https://theworks.com.ar/wp-content/uploads/2023/04/w5-1-1024x683.jpg",
@@ -74,7 +74,7 @@ async function seedDataBase() {
         country: "Argentina",
         openingTime: "8:30 hs",
         closingTime: "20:30 hs",
-        floors: 2,
+        floorsNumber: 2,
         phoneNumber: 3517000137,
         urlImg: [
           "https://lamaquinita.co/wp-content/uploads/2022/04/Cordoba-1.jpg",
@@ -91,7 +91,7 @@ async function seedDataBase() {
         country: "Argentina",
         openingTime: "8:30 hs",
         closingTime: "20:30 hs",
-        floors: 1,
+        floorsNumber: 1,
         phoneNumber: 1132211015,
         urlImg: [
           "https://lamaquinita.co/wp-content/uploads/2023/05/MAQUINITA.quilmes.43.jpg",
