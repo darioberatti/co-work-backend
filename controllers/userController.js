@@ -9,6 +9,7 @@ exports.login = async (req, res) => {
     const user = await User.findByEmail(email);
     // console.log("USER ----> ", user)
     if (!user) return res.status(401).send("Usuario no encontrado");
+    if (user.status === "disabled") return res.status(401).send("Usuario deshabilitado")
 
     const isValid = await User.validateUserPassword(user, password);
     // console.log("isValid ----> ", isValid)
