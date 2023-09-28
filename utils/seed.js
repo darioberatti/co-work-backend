@@ -1,4 +1,4 @@
-const { Users, Roles } = require("../models");
+const { Users, Roles, Offices } = require("../models");
 
 async function seedDataBaseRoles() {
   try {
@@ -20,7 +20,7 @@ async function seedDataBaseRoles() {
 
 async function seedDataBase() {
   try {
-    await seedDataBaseRoles(); // Espera a que se completen las categorías
+    await seedDataBaseRoles(); // Espera a que se completen los roles
     await Users.bulkCreate([
       {
         name: "Admin",
@@ -32,7 +32,7 @@ async function seedDataBase() {
         salt: "",
         course: "admin",
         roleId: 1,
-        status: "enabled"
+        status: "enabled",
       },
       {
         name: "Pedro",
@@ -44,7 +44,60 @@ async function seedDataBase() {
         salt: "",
         course: "Julio 2023",
         roleId: 3,
-        status: "enabled"
+        status: "enabled",
+      },
+    ]);
+
+    await Offices.bulkCreate([
+      {
+        name: "The Works Torre Alem Plaza",
+        address: "Av Leandro N Alem 855",
+        city: "CABA",
+        province: "Buenos Aires",
+        country: "Argentina",
+        openingTime: "9 hs",
+        closingTime: "18 hs",
+        floors: 1,
+        phoneNumber: 1176103130,
+        urlImg: [
+          "https://theworks.com.ar/wp-content/uploads/2023/04/w5-1-1024x683.jpg",
+          "https://theworks.com.ar/wp-content/uploads/2023/04/r6.jpg",
+          "https://theworks.com.ar/wp-content/uploads/2023/04/r7.jpg",
+          "https://theworks.com.ar/wp-content/uploads/2023/04/r9.jpg",
+        ],
+      },
+      {
+        name: "La Maquinita Córdoba",
+        address: "San Lorenzo 25",
+        city: "Córdoba",
+        province: "Córdoba",
+        country: "Argentina",
+        openingTime: "8:30 hs",
+        closingTime: "20:30 hs",
+        floors: 2,
+        phoneNumber: 3517000137,
+        urlImg: [
+          "https://lamaquinita.co/wp-content/uploads/2022/04/Cordoba-1.jpg",
+          "https://lamaquinita.co/wp-content/uploads/2022/04/Cordoba-12.jpg",
+          "https://lamaquinita.co/wp-content/uploads/2022/04/Cordoba-4-1.jpg",
+          "https://lamaquinita.co/wp-content/uploads/2022/04/Cordoba-6.jpg",
+        ],
+      },
+      {
+        name: "La Maquinita Quilmes",
+        address: "Av Caseros 1750",
+        city: "Don Bosco",
+        province: "Buenos Aires",
+        country: "Argentina",
+        openingTime: "8:30 hs",
+        closingTime: "20:30 hs",
+        floors: 1,
+        phoneNumber: 1132211015,
+        urlImg: [
+          "https://lamaquinita.co/wp-content/uploads/2023/05/MAQUINITA.quilmes.43.jpg",
+          "https://lamaquinita.co/wp-content/uploads/2023/05/MAQUINITA.quilmes.22.jpg",
+          "https://lamaquinita.co/wp-content/uploads/2023/05/MAQUINITA.quilmes.15.jpg",
+        ],
       },
     ]);
   } catch (error) {

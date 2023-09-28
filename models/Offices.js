@@ -35,6 +35,16 @@ Offices.init(
         },
       },
     },
+    province: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        is: {
+          args: /^[A-Za-z0-9\s]+$/,
+          msg: "La cadena debe contener letras, espacios y números solamente.",
+        },
+      },
+    },
     country: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -63,6 +73,9 @@ Offices.init(
     },
     phoneNumber: {
       type: DataTypes.BIGINT,
+    },
+    urlImg: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
   },
   { sequelize: db, modelName: "offices" }
