@@ -8,10 +8,10 @@ Tables.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        // will only allow alphanumeric characters, so "_abc" will fail
-        isAlphanumeric: true,
-      },
+      // validate: {
+      //   // will only allow alphanumeric characters, so "_abc" will fail
+      //   isAlphanumeric: true,
+      // },
     },
     floor: {
       type: DataTypes.INTEGER,
@@ -23,7 +23,7 @@ Tables.init(
     },
     capacity: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       validate: {
         // will only allow numbers
         isNumeric: true,
