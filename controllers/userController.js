@@ -7,7 +7,7 @@ exports.login = async (req, res) => {
 
   try {
     const user = await User.findByEmail(email);
-    // console.log("USER ----> ", user)
+    // console.log("USER ----> ", user.role.name)
     if (!user) return res.status(401).send("Usuario no encontrado");
     if (user.status === "disabled") return res.status(401).send("Usuario deshabilitado")
 
@@ -25,6 +25,7 @@ exports.login = async (req, res) => {
       course: user.course,
       status: user.status,
       roleId: user.roleId,
+      role: user.role.name
     };
     // console.log("PAYLOAD ----> ", payload)
 
