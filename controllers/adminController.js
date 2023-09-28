@@ -67,7 +67,7 @@ exports.addOffice = async (req, res) => {
           Tables.create({
             name: `Floor ${i} - Table A`,
             floor: floor.number,
-            capacity: null,
+            capacity: 6,
           })
         );
       }
