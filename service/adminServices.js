@@ -1,12 +1,25 @@
 const Offices = require("../models/Offices");
+const Floors = require("../models/Floors")
 
 class Admin {
   static async showAll() {
-    return Offices.findAll();
+    return Offices.findAll({
+      include: {
+        model: Floors,
+        as: "floors",
+        include: "tables", // Esto incluirá las mesas dentro de los pisos
+      },
+    });
   }
-
+  
   static async showByPk(officeId) {
-    return Offices.findByPk(officeId);
+    return Offices.findByPk(officeId, {
+      include: {
+        model: Floors,
+        as: "floors",
+        include: "tables", // Esto incluirá las mesas dentro de los pisos
+      },
+    });
   }
 
   static async add(
@@ -17,7 +30,7 @@ class Admin {
     province,
     openingTime,
     closingTime,
-    floors,
+    floorsNumber,
     phoneNumber,
     urlImg
   ) {
@@ -29,7 +42,7 @@ class Admin {
       country,
       openingTime,
       closingTime,
-      floors,
+      floorsNumber,
       phoneNumber,
       urlImg,
     });
