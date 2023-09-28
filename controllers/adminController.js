@@ -27,11 +27,13 @@ exports.addOffice = async (req, res) => {
     name,
     address,
     city,
+    province,
     country,
     openingTime,
     closingTime,
     floorsNumber,
     phoneNumber,
+    urlImg,
   } = req.body;
 
   try {
@@ -43,11 +45,13 @@ exports.addOffice = async (req, res) => {
       name,
       address,
       city,
+      province,
       country,
       openingTime,
       closingTime,
       floorsNumber,
-      phoneNumber
+      phoneNumber,
+      urlImg
     );
 
     const floorsPromises = [];
