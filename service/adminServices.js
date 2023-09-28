@@ -14,20 +14,24 @@ class Admin {
     address,
     city,
     country,
+    province,
     openingTime,
     closingTime,
     floors,
-    phoneNumber
+    phoneNumber,
+    urlImg
   ) {
     return Offices.create({
       name,
       address,
       city,
+      province,
       country,
       openingTime,
       closingTime,
       floors,
       phoneNumber,
+      urlImg,
     });
   }
 }

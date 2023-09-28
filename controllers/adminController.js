@@ -25,11 +25,13 @@ exports.addOffice = async (req, res) => {
     name,
     address,
     city,
+    province,
     country,
     openingTime,
     closingTime,
     floors,
     phoneNumber,
+    urlImg,
   } = req.body;
 
   try {
@@ -41,11 +43,13 @@ exports.addOffice = async (req, res) => {
       name,
       address,
       city,
+      province,
       country,
       openingTime,
       closingTime,
       floors,
-      phoneNumber
+      phoneNumber,
+      urlImg
     );
     res.status(201).send(result);
   } catch (error) {
