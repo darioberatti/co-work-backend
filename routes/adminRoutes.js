@@ -11,8 +11,7 @@ router.get("/offices/:officeId", getOfficeById);
 //Ruta para agregar una nueva oficina.
 router.post("/offices", addOffice)
 
-//Ruta para editar cualquier campo del usuario.
+//Ruta para editar cualquier campo de la oficina.
 router.put("/offices/:officeId", editOffice)
-
 
 module.exports = router;

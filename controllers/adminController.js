@@ -1,6 +1,4 @@
 const { Admin } = require("../service/adminServices");
-const Tables = require("../models/Tables");
-const Floors = require("../models/Floors");
 
 exports.listOffices = async (req, res) => {
   try {
@@ -54,35 +52,21 @@ exports.addOffice = async (req, res) => {
       urlImg
     );
 
-    const floorsPromises = [];
-    for (let i = 1; i <= floorsNumber; i++) {
-      const floor = await Floors.create({
-        number: i,
-        tablesNumber: 1,
-      });
+    const finalResult = Admin.relation(result, floorsNumber);
 
-      const tablePromises = [];
-      for (let j = 1; j <= floor.tablesNumber; j++) {
-        tablePromises.push(
-          Tables.create({
-            name: `Floor ${i} - Table A`,
-            floor: floor.number,
-            capacity: 6,
-          })
-        );
-      }
+    res.status(201).send(finalResult);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
 
-      const createdTables = await Promise.all(tablePromises);
-      await floor.addTables(createdTables);
+exports.editOffice = async (req, res) => {
+  const { officeId } = req.params;
 
-      await result.addFloors(floor);
-
-      floorsPromises.push(floor);
-    }
-
-    await result.addFloors(floorsPromises);
-
-    res.status(201).send(result);
+  try {
+    const result = await Admin.edit(officeId, req.body);
+    if (!result) return res.status(400).send("Usuario no encontrado");
+    res.status(200).send(result);
   } catch (error) {
     res.status(400).send(error);
   }
