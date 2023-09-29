@@ -80,11 +80,22 @@ exports.addOffice = async (req, res) => {
       floorsPromises.push(floor);
     }
 
-    // Agregar todos los pisos a la oficina
     await result.addFloors(floorsPromises);
 
     res.status(201).send(result);
   } catch (error) {
     res.status(400).send(error);
   }
+
+  exports.editOffice = async (req, res) => {
+    const { officeId } = req.params;
+  
+    try {
+      const result = await Admin.edit(officeId, req.body);
+      if (!result) return res.status(400).send("Usuario no encontrado");
+      res.status(200).send(result);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  };
 };

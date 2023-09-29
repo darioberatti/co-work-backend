@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { listOffices, getOfficeById, addOffice } = require("../controllers/adminController");
+const { listOffices, getOfficeById, addOffice, editOffice } = require("../controllers/adminController");
 
 // Ruta para listar todas las oficinas.
 router.get("/offices", listOffices);
