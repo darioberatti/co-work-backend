@@ -4,6 +4,7 @@ class User {
   static async findByEmail(email) {
     return Users.findOne({
       where: { email },
+      include: "role"
     });
   }
 
