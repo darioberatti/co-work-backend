@@ -43,7 +43,7 @@ async function seedDataBase() {
         password: "123456",
         salt: "",
         course: "Julio 2023",
-        roleId: 3,
+        roleId: 2,
         status: "enabled",
       },
     ]);
