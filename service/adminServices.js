@@ -76,7 +76,7 @@ class Admin {
           Tables.create({
             name: `Floor ${i} - Table A`,
             floor: floor.number,
-            capacity: 6,
+            capacity: 0,
           })
         );
       }

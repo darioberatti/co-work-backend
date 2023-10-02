@@ -1,4 +1,5 @@
 const { Admin } = require("../service/adminServices");
+const Tables = require("../models/Tables");
 
 exports.listOffices = async (req, res) => {
   try {
@@ -71,3 +72,22 @@ exports.editOffice = async (req, res) => {
     res.status(400).send(error);
   }
 };
+
+exports.editTableCapacity = async (req, res) => {
+  const { tableId } = req.params;
+  const { capacity } = req.body;
+
+  try {
+    const table = await Tables.findByPk(tableId);
+
+    if (!table) {
+      return res.status(404).send("Mesa no encontrada");
+    }
+
+    await table.update({ capacity }, { returning: true });
+
+    res.status(200).send("Capacidad de la mesa actualizada exitosamente");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+}
