@@ -24,7 +24,7 @@ Tables.init(
     capacity: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 6,
+      defaultValue: 0,
       validate: {
         // will only allow numbers
         isNumeric: true,
