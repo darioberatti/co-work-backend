@@ -45,13 +45,13 @@ User.init(
         len: [8, 8],
       },
     },
-    age: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        // will only allow numbers
-        isNumeric: true,
-      },
+    birth: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      // validate: {
+      //   // will only allow numbers
+      //   isNumeric: true,
+      // },
     },
     email: {
       type: DataTypes.STRING,
