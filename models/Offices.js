@@ -49,6 +49,11 @@ Offices.init(
     urlImg: {
       type: DataTypes.ARRAY(DataTypes.STRING),
     },
+    status: {
+      type: DataTypes.ENUM,
+      defaultValue: "enabled",
+      values: ["enabled", "disabled"]
+    }
   },
   { sequelize: db, modelName: "offices" }
 );
