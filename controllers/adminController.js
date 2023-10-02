@@ -5,7 +5,7 @@ exports.listOffices = async (req, res) => {
     const result = await Admin.showAll();
     res.status(200).send(result);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send(error.message);
   }
 };
 
@@ -16,7 +16,7 @@ exports.getOfficeById = async (req, res) => {
     if (!result) return res.status(400).send("Oficina no encontrada");
     res.status(200).send(result);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send(error.message);
   }
 };
 
@@ -56,7 +56,7 @@ exports.addOffice = async (req, res) => {
 
     res.status(201).send(finalResult);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send(error.message);
   }
 };
 
@@ -68,6 +68,6 @@ exports.editOffice = async (req, res) => {
     if (!result) return res.status(400).send("Usuario no encontrado");
     res.status(200).send(result);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send(error.message);
   }
 };

@@ -8,12 +8,12 @@ exports.login = async (req, res) => {
   try {
     const user = await User.findByEmail(email);
     // console.log("USER ----> ", user.role.name)
-    if (!user) return res.status(401).send("Usuario no encontrado");
+    if (!user) return res.status(401).send("Credenciales inválidas");
     if (user.status === "disabled") return res.status(401).send("Usuario deshabilitado. Contactese con nosotros para revisar su situación.")
 
     const isValid = await User.validateUserPassword(user, password);
     // console.log("isValid ----> ", isValid)
-    if (!isValid) return res.status(401).send("Contraseña invalida");
+    if (!isValid) return res.status(401).send("Credenciales inválidas");
 
     const payload = {
       userId: user.id,
@@ -35,7 +35,7 @@ exports.login = async (req, res) => {
     res.cookie("token", token);
     res.send(payload);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send(error.message);
   }
 };
 
@@ -68,7 +68,7 @@ exports.resetPassword = async (req, res) => {
 
     res.status(200).send(user);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send(error.message);
   }
 };
 
