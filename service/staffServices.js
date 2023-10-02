@@ -23,6 +23,9 @@ class Staff {
         throw new Error("Todos los campos son requeridos");
       }
 
+      const exists = await Users.findOne({ where: { email } });
+    if (exists) throw new Error("Este usuario ya existe")
+
       return Users.create({
         name,
         lastName,

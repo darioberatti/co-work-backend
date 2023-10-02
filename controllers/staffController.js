@@ -9,7 +9,7 @@ exports.listUsers = async (req, res) => {
     const result = await Staff.showAll();
     res.status(200).send(result);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send(error.message);
   }
 };
 
@@ -23,7 +23,7 @@ exports.getUserById = async (req, res) => {
 
     res.status(200).send(result);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send(error.message);
   }
 };
 
@@ -35,6 +35,8 @@ exports.addUser = async (req, res) => {
       return res.status(400).send("Todos los campos son requeridos");
     }
 
+    
+
     const result = await Staff.add(name, lastName, DNI, birth, email, course);
     const payload = { userId: result.id, email: result.email };
     const registerToken = generateToken(payload);
@@ -43,7 +45,7 @@ exports.addUser = async (req, res) => {
 
     res.status(201).send(result);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send(error.message);
   }
 };
 
@@ -55,7 +57,7 @@ exports.editUser = async (req, res) => {
     if (!result) return res.status(400).send("Usuario no encontrado");
     res.status(200).send(result);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send(error.message);
   }
 };
 
@@ -74,6 +76,6 @@ exports.setPassword = async (req, res) => {
 
     res.status(200).send(result);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send(error.message);
   }
 };
