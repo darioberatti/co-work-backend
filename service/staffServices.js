@@ -17,9 +17,9 @@ class Staff {
     }
   }
 
-  static async add(name, lastName, DNI, age, email, course) {
+  static async add(name, lastName, DNI, birth, email, course) {
     try {
-      if (!name || !lastName || !DNI || !age || !email || !course) {
+      if (!name || !lastName || !DNI || !birth || !email || !course) {
         throw new Error("Todos los campos son requeridos");
       }
 
@@ -27,7 +27,7 @@ class Staff {
         name,
         lastName,
         DNI,
-        age,
+        birth,
         email,
         course,
         roleId: 3,

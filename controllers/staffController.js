@@ -28,14 +28,14 @@ exports.getUserById = async (req, res) => {
 };
 
 exports.addUser = async (req, res) => {
-  const { name, lastName, DNI, age, email, course } = req.body;
+  const { name, lastName, DNI, birth, email, course } = req.body;
   
   try {
-    if (!name || !lastName || !DNI || !age || !email || !course) {
+    if (!name || !lastName || !DNI || !birth || !email || !course) {
       return res.status(400).send("Todos los campos son requeridos");
     }
 
-    const result = await Staff.add(name, lastName, DNI, age, email, course);
+    const result = await Staff.add(name, lastName, DNI, birth, email, course);
     const payload = { userId: result.id, email: result.email };
     const registerToken = generateToken(payload);
 
