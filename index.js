@@ -7,6 +7,9 @@ const cors = require("cors");
 const db = require("./config/db/db");
 const routes = require("./routes");
 const { models } = require("./models");
+const { envValidation } = require("./config/env/envValidation");
+
+
 
 const port = process.env.PORT;
 
@@ -24,25 +27,7 @@ app.use(
 app.use("/", routes);
 
 // Validacion variables de entorno
-const requiredEnvVariables = [
-  "PORT",
-  "ORIGIN",
-  "SECRET",
-  "USER",
-  "PASSWORD",
-  "HOST",
-  "EMAIL_ADMIN",
-  "PASS_ADMIN",
-];
-const missingEnvVariables = requiredEnvVariables.filter(
-  (variable) => !process.env[variable]
-);
-if (missingEnvVariables.length > 0) {
-  console.error(
-    `Faltan variables de entorno requeridas: ${missingEnvVariables.join(", ")}`
-  );
-  process.exit(1);
-}
+console.log(envValidation);
 
 db.sync({ force: false })
   .then(() => {
