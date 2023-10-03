@@ -1,27 +1,27 @@
 const { Admin } = require("../service/adminServices");
 const Tables = require("../models/Tables");
 
-exports.listOffices = async (req, res) => {
+exports.listOffices = async (req, res, next) => {
   try {
     const result = await Admin.showAll();
     res.status(200).send(result);
   } catch (error) {
-    res.status(400).send(error);
+    next(error);
   }
 };
 
-exports.getOfficeById = async (req, res) => {
+exports.getOfficeById = async (req, res, next) => {
   const { officeId } = req.params;
   try {
     const result = await Admin.showByPk(officeId);
     if (!result) return res.status(400).send("Oficina no encontrada");
     res.status(200).send(result);
   } catch (error) {
-    res.status(400).send(error);
+    next(error);
   }
 };
 
-exports.addOffice = async (req, res) => {
+exports.addOffice = async (req, res, next) => {
   const {
     name,
     address,
@@ -57,11 +57,11 @@ exports.addOffice = async (req, res) => {
 
     res.status(201).send(finalResult);
   } catch (error) {
-    res.status(400).send(error);
+    next(error);
   }
 };
 
-exports.editOffice = async (req, res) => {
+exports.editOffice = async (req, res, next) => {
   const { officeId } = req.params;
 
   try {
@@ -69,11 +69,11 @@ exports.editOffice = async (req, res) => {
     if (!result) return res.status(400).send("Usuario no encontrado");
     res.status(200).send(result);
   } catch (error) {
-    res.status(400).send(error);
+    next(error);
   }
 };
 
-exports.editTableCapacity = async (req, res) => {
+exports.editTableCapacity = async (req, res, next) => {
   const { tableId } = req.params;
   const { capacity } = req.body;
 
@@ -88,6 +88,6 @@ exports.editTableCapacity = async (req, res) => {
 
     res.status(200).send("Capacidad de la mesa actualizada exitosamente");
   } catch (error) {
-    res.status(400).send(error.message);
+    next(error);
   }
-}
+};
