@@ -12,7 +12,7 @@ const { validateUser } = require("../middleware/auth");
 router.post("/login", login);
 
 // Ruta para Logout
-router.post("/logout", logout);
+router.post("/logout", validateUser, logout);
 
 // Ruta Me y Persistencia
 router.get("/me", validateUser, persistencia);
