@@ -1,15 +1,15 @@
-const Users = require("../models/Users");
+const { Users } = require("../models");
 
 class User {
   static async findByEmail(email) {
     return Users.findOne({
       where: { email },
-      include: "role"
+      include: "role",
     });
   }
 
   static async validateUserPassword(user, password) {
-    return user.validatePassword(password)
+    return user.validatePassword(password);
   }
 }
 
