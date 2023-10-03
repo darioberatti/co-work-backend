@@ -3,7 +3,7 @@ const router = express.Router();
 const {
   login,
   logout,
-  persistencia,
+  persistence,
   resetPassword,
 } = require("../controllers/userController");
 const { validateUser } = require("../middleware/auth");
@@ -15,7 +15,7 @@ router.post("/login", login);
 router.post("/logout", validateUser, logout);
 
 // Ruta Me y Persistencia
-router.get("/me", validateUser, persistencia);
+router.get("/me", validateUser, persistence);
 
 // Ruta para resetear contraseña
 router.post("/reset-password", resetPassword);

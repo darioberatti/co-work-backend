@@ -2,14 +2,19 @@ const { User } = require("../service/userServices");
 const { generateToken } = require("../config/tokens");
 const { resetPasswordEmail } = require("../config/repositories/mailer");
 
-exports.login = async (req, res) => {
+exports.login = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
     const user = await User.findByEmail(email);
     // console.log("USER ----> ", user.role.name)
     if (!user) return res.status(401).send("Credenciales inválidas");
-    if (user.status === "disabled") return res.status(401).send("Usuario deshabilitado. Contactese con nosotros para revisar su situación.")
+    if (user.status === "disabled")
+      return res
+        .status(401)
+        .send(
+          "Usuario deshabilitado. Contactese con nosotros para revisar su situación."
+        );
 
     const isValid = await User.validateUserPassword(user, password);
     // console.log("isValid ----> ", isValid)
@@ -25,7 +30,7 @@ exports.login = async (req, res) => {
       course: user.course,
       status: user.status,
       roleId: user.roleId,
-      role: user.role.name
+      role: user.role.name,
     };
     // console.log("PAYLOAD ----> ", payload)
 
@@ -35,7 +40,7 @@ exports.login = async (req, res) => {
     res.cookie("token", token);
     res.send(payload);
   } catch (error) {
-    res.status(400).send(error.message);
+    next(error);
   }
 };
 
@@ -44,11 +49,11 @@ exports.logout = (req, res) => {
   res.sendStatus(204).end();
 };
 
-exports.persistencia = (req, res) => {
+exports.persistence = (req, res) => {
   res.send(req.user);
 };
 
-exports.resetPassword = async (req, res) => {
+exports.resetPassword = async (req, res, next) => {
   const { email } = req.body;
   // console.log("resetPassword -- req.body ---> ", req.body);
 
@@ -68,7 +73,6 @@ exports.resetPassword = async (req, res) => {
 
     res.status(200).send(user);
   } catch (error) {
-    res.status(400).send(error.message);
+    next(error);
   }
 };
-
