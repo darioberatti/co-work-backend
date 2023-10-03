@@ -1,4 +1,4 @@
-const { Users, Roles, Offices } = require("../models");
+const { Users, Roles, Offices, Floors, Tables } = require("../models");
 
 async function seedDataBaseRoles() {
   try {
@@ -98,6 +98,43 @@ async function seedDataBase() {
           "https://lamaquinita.co/wp-content/uploads/2023/05/MAQUINITA.quilmes.22.jpg",
           "https://lamaquinita.co/wp-content/uploads/2023/05/MAQUINITA.quilmes.15.jpg",
         ],
+      },
+    ]);
+    await Floors.bulkCreate([
+      {
+        number: 2,
+        tablesNumber: 1,
+        officeId: 1,
+      },
+      {
+        number: 3,
+        tablesNumber: 1,
+        officeId: 1,
+      },
+      {
+        number: 3,
+        tablesNumber: 1,
+        officeId: 2,
+      },
+    ]);
+    await Tables.bulkCreate([
+      {
+        name: `Floor 1 - Table A`,
+        floor: 1,
+        capacity: 6,
+        floorId: 1,
+      },
+      {
+        name: `Floor 2 - Table A`,
+        floor: 2,
+        capacity: 6,
+        floorId: 2,
+      },
+      {
+        name: `Floor 1 - Table A`,
+        floor: 1,
+        capacity: 6,
+        floorId: 3,
       },
     ]);
   } catch (error) {
