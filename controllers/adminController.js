@@ -1,5 +1,5 @@
 const { Admin } = require("../service/adminServices");
-const Tables = require("../models/Tables");
+const { Tables } = require("../models");
 
 exports.listOffices = async (req, res) => {
   try {
@@ -90,4 +90,4 @@ exports.editTableCapacity = async (req, res) => {
   } catch (error) {
     res.status(400).send(error.message);
   }
-}
+};

@@ -1,6 +1,4 @@
-const Offices = require("../models/Offices");
-const Floors = require("../models/Floors");
-const Tables = require("../models/Tables");
+const {Offices , Floors, Tables} = require("../models")
 
 class Admin {
   static async showAll() {

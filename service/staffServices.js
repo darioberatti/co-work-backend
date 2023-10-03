@@ -1,4 +1,4 @@
-const Users = require("../models/Users");
+const { Users } = require("../models");
 
 class Staff {
   static async showAll() {
@@ -24,7 +24,7 @@ class Staff {
       }
 
       const exists = await Users.findOne({ where: { email } });
-    if (exists) throw new Error("Este usuario ya existe")
+      if (exists) throw new Error("Este usuario ya existe");
 
       return Users.create({
         name,

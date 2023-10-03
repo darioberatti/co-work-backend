@@ -13,4 +13,4 @@ Offices.hasMany(Floors, { as: "floors" });
 Floors.hasMany(Tables, {as: "tables"});
 
 
-module.exports = { Bookings, Offices, Roles, Tables, Users };
+module.exports = { Bookings, Offices, Roles, Tables, Users, Floors };
