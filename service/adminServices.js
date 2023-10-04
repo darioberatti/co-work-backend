@@ -4,9 +4,8 @@ class Admin {
   static async showAll() {
     return Offices.findAll({
       include: {
-        model: Floors,
-        as: "floors",
-        include: "tables", // Esto incluirá las mesas dentro de los pisos
+        model: Tables,
+        as: "tables",
       },
     });
   }
@@ -14,9 +13,8 @@ class Admin {
   static async showByPk(officeId) {
     return Offices.findByPk(officeId, {
       include: {
-        model: Floors,
-        as: "floors",
-        include: "tables", // Esto incluirá las mesas dentro de los pisos
+        model: Tables,
+        as: "tables",
       },
     });
   }
@@ -61,31 +59,31 @@ class Admin {
     }
   }
 
-  static async relation(result, floorsNumber) {
-    const floorsPromises = [];
-    for (let i = 1; i <= floorsNumber; i++) {
-      const floor = await Floors.create({
-        number: i,
-        tablesNumber: 1,
-      });
-      const tablePromises = [];
-      for (let j = 1; j <= floor.tablesNumber; j++) {
-        tablePromises.push(
-          Tables.create({
-            name: `Floor ${i} - Table A`,
-            floor: floor.number,
-            capacity: 6,
-          })
-        );
-      }
-      const createdTables = await Promise.all(tablePromises);
-      await floor.addTables(createdTables);
-      await result.addFloors(floor);
-      floorsPromises.push(floor);
-    }
+  // static async relation(result, floorsNumber) {
+  //   const floorsPromises = [];
+  //   for (let i = 1; i <= floorsNumber; i++) {
+  //     const floor = await Floors.create({
+  //       number: i,
+  //       tablesNumber: 1,
+  //     });
+  //     const tablePromises = [];
+  //     for (let j = 1; j <= floor.tablesNumber; j++) {
+  //       tablePromises.push(
+  //         Tables.create({
+  //           name: `Floor ${i} - Table A`,
+  //           floor: floor.number,
+  //           capacity: 6,
+  //         })
+  //       );
+  //     }
+  //     const createdTables = await Promise.all(tablePromises);
+  //     await floor.addTables(createdTables);
+  //     await result.addFloors(floor);
+  //     floorsPromises.push(floor);
+  //   }
 
-    await result.addFloors(floorsPromises);
-  }
+  //   await result.addFloors(floorsPromises);
+  // }
 
   static async createTable(name, floor, capacity, officeId) {
     return Tables.create({ name, floor, capacity, officeId });

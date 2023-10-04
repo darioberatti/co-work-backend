@@ -53,7 +53,7 @@ exports.addOffice = async (req, res, next) => {
       urlImg
     );
 
-    const finalResult = Admin.relation(result, floorsNumber);
+    // const finalResult = Admin.relation(result, floorsNumber);
 
     res.status(201).send(finalResult);
   } catch (error) {
@@ -96,6 +96,10 @@ exports.addTable = async (req, res) => {
   const { officeId } = req.params;
   const { name, floor, capacity } = req.body;
   try {
+    const exists = await Tables.findAll({
+      where: { name: name, officeId: officeId },
+    });
+    if (exists[0]) return res.status(400).send("Esta mesa ya existe");
     const result = await Admin.createTable(name, floor, capacity, officeId);
     res.status(201).send(result);
   } catch (error) {

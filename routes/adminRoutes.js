@@ -34,7 +34,7 @@ router.put(
 );
 
 //Ruta para obtener las mesas de una oficina
-router.get("/offices/:officeId/tables", validateUser, validateAdmin, getTables)
+router.get("/offices/:officeId/tables", validateUser, getTables)
 
 //Ruta para crear una mesa
 router.post("/offices/:officeId/tables", validateUser, validateAdmin, addTable);

@@ -100,41 +100,31 @@ async function seedDataBase() {
         ],
       },
     ]);
-    await Floors.bulkCreate([
-      {
-        number: 2,
-        tablesNumber: 1,
-        officeId: 1,
-      },
-      {
-        number: 3,
-        tablesNumber: 1,
-        officeId: 1,
-      },
-      {
-        number: 3,
-        tablesNumber: 1,
-        officeId: 2,
-      },
-    ]);
+    
     await Tables.bulkCreate([
       {
-        name: `Floor 1 - Table A`,
+        name: `1-A`,
         floor: 1,
         capacity: 6,
-        floorId: 1,
+        officeId: 1,
       },
       {
-        name: `Floor 2 - Table A`,
-        floor: 2,
-        capacity: 6,
-        floorId: 2,
-      },
-      {
-        name: `Floor 1 - Table A`,
+        name: `1-B`,
         floor: 1,
+        capacity: 8,
+        officeId: 1,
+      },
+      {
+        name: `3-A`,
+        floor: 3,
         capacity: 6,
-        floorId: 3,
+        officeId: 2,
+      },
+      {
+        name: `4-A`,
+        floor: 4,
+        capacity: 4,
+        officeId: 3,
       },
     ]);
   } catch (error) {
