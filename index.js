@@ -27,14 +27,14 @@ app.use("/health", (req, res) => {
   res.sendStatus(200);
 });
 
+// Validacion variables de entorno
+console.log(envValidation);
+
 app.use((err, req, res, next) => {
   console.log("ERROR");
   console.log(err);
   res.status(500).send(err.message);
 });
-
-// Validacion variables de entorno
-console.log(envValidation);
 
 db.sync({ force: false })
   .then(() => {
