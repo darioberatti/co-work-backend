@@ -8,6 +8,7 @@ const {
   editTableCapacity,
   addTable,
   deleteTable,
+  getTables,
 } = require("../controllers/adminController");
 const { validateUser, validateAdmin } = require("../middleware/auth");
 const { Tables } = require("../models");
@@ -31,6 +32,9 @@ router.put(
   validateAdmin,
   editTableCapacity
 );
+
+//Ruta para obtener las mesas de una oficina
+router.get("/offices/:officeId/tables", validateUser, validateAdmin, getTables)
 
 //Ruta para crear una mesa
 router.post("/offices/:officeId/tables", validateUser, validateAdmin, addTable);

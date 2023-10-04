@@ -93,6 +93,9 @@ class Admin {
   static async destroyTable(tableId) {
     return Tables.destroy({ where: { id: tableId } });
   }
+  static async getOfficesTables(officeId) {
+    return Tables.findAll({ where: { officeId } });
+  }
 }
 
 module.exports = { Admin };

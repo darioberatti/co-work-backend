@@ -96,12 +96,12 @@ exports.addTable = async (req, res) => {
   const { officeId } = req.params;
   const { name, floor, capacity } = req.body;
   try {
-    const result = await Admin.createTable( name, floor, capacity, officeId );
+    const result = await Admin.createTable(name, floor, capacity, officeId);
     res.status(201).send(result);
   } catch (error) {
     res.status(400).send(error);
   }
-}
+};
 
 exports.deleteTable = async (req, res) => {
   const { officeId, tableId } = req.params;
@@ -111,4 +111,14 @@ exports.deleteTable = async (req, res) => {
   } catch (error) {
     res.status(400).send(error);
   }
-}
+};
+
+exports.getTables = async (req, res) => {
+  const { officeId } = req.params;
+  try {
+    const officesTables = await Admin.getOfficesTables(officeId);
+    res.status(200).send(officesTables);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
