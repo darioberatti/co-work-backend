@@ -1,4 +1,4 @@
-const {Offices , Floors, Tables} = require("../models")
+const { Offices, Floors, Tables } = require("../models");
 
 class Admin {
   static async showAll() {
@@ -85,6 +85,16 @@ class Admin {
     }
 
     await result.addFloors(floorsPromises);
+  }
+
+  static async createTable(name, floor, capacity, officeId) {
+    return Tables.create({ name, floor, capacity, officeId });
+  }
+  static async destroyTable(tableId) {
+    return Tables.destroy({ where: { id: tableId } });
+  }
+  static async getOfficesTables(officeId) {
+    return Tables.findAll({ where: { officeId } });
   }
 }
 
