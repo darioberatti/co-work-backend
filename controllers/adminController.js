@@ -55,7 +55,7 @@ exports.addOffice = async (req, res, next) => {
 
     // const finalResult = Admin.relation(result, floorsNumber);
 
-    res.status(201).send(finalResult);
+    res.status(201).send(result);
   } catch (error) {
     next(error);
   }

@@ -10,11 +10,14 @@ Booking.init(
       allowNull: false,
     },
     shift: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM,
+      values: ["mañana", "tarde"],
       allowNull: false,
     },
     status: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM,
+      defaultValue:"active",
+      values: ["active", "completed"],
     },
   },
   { sequelize: db, modelName: "booking" }

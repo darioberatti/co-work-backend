@@ -10,7 +10,8 @@ Occupation.init(
       allowNull: false,
     },
     shift: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM,
+      values: ["mañana", "tarde"],
       allowNull: false,
     },
     maxCapacity: {
