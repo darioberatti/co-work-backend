@@ -11,7 +11,7 @@ const {
   getTables,
 } = require("../controllers/adminController");
 const { validateUser, validateAdmin } = require("../middleware/auth");
-const { Tables } = require("../models");
+const { Tables, Roles } = require("../models");
 
 // Ruta para listar todas las oficinas.
 router.get("/offices", validateUser, listOffices);
@@ -34,7 +34,7 @@ router.put(
 );
 
 //Ruta para obtener las mesas de una oficina
-router.get("/offices/:officeId/tables", validateUser, getTables)
+router.get("/offices/:officeId/tables", validateUser, getTables);
 
 //Ruta para crear una mesa
 router.post("/offices/:officeId/tables", validateUser, validateAdmin, addTable);
@@ -46,5 +46,15 @@ router.delete(
   validateAdmin,
   deleteTable
 );
+
+//Ruta para agregar un Rol
+router.post("/roles", async (req, res) => {
+  try {
+    const response = await Roles.create(req.body);
+    res.status(201).send(response);
+  } catch (error) {
+    res.send(error);
+  }
+});
 
 module.exports = router;
