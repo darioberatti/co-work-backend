@@ -3,7 +3,9 @@ const { Bookings } = require("../models");
 class Book {
   static async showAll() {
     try {
-      return Bookings.findAll();
+      return Bookings.findAll({
+        include: "table"
+      });
     } catch (error) {
       throw new Error(error);
     }
