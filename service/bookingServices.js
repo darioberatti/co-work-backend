@@ -17,16 +17,21 @@ class Book {
     }
   }
 
-  static async add(userId, reservationData) {
-    // console.log("reservationData-->", reservationData);
-    reservationData = {
-      userId: userId,
-      ...reservationData,
-    };
+  static async getTable(userId) {
     try {
-      return Bookings.create(reservationData);
+      return Bookings.findAll({ where: { userId } });
     } catch (error) {
       throw new Error(error);
+    }
+  }
+
+  static async add(userId, reservationData) {
+    // console.log("reservationData-->", reservationData);
+    
+    try {
+      
+    } catch (error) {
+      
     }
   }
 }
