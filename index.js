@@ -8,6 +8,7 @@ const db = require("./config/db/db");
 const routes = require("./routes");
 const { models } = require("./models");
 const { envValidation } = require("./config/env/envValidation");
+const { updateCompletedReservations } = require("./utils/updateReservations");
 
 const port = process.env.PORT;
 
@@ -29,6 +30,10 @@ app.use("/health", (req, res) => {
 
 // Validacion variables de entorno
 console.log(envValidation);
+
+
+const intervaloDeActualizacion = 60 * 60 * 1000; // 1 hora en milisegundos
+setInterval(updateCompletedReservations, intervaloDeActualizacion);
 
 app.use((err, req, res, next) => {
   console.log("ERROR");
