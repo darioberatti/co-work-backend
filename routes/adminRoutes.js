@@ -47,14 +47,14 @@ router.delete(
   deleteTable
 );
 
-//Ruta para agregar un Rol
-router.post("/roles", async (req, res) => {
+//Ruta para agregar un Rol (Se usó para agregar los roles en deployed)
+/* router.post("/roles", async (req, res) => {
   try {
     const response = await Roles.create(req.body);
     res.status(201).send(response);
   } catch (error) {
     res.send(error);
   }
-});
+}); */
 
 module.exports = router;
