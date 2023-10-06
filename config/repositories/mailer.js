@@ -41,4 +41,20 @@ const resetPasswordEmail = (to, resetToken) => {
   });
 };
 
-module.exports = { transporter, sendEmail, resetPasswordEmail };
+const newBookingConfirmationEmail =(to , newReservation , table)=>{
+  transporter.sendMail({
+    from: '"Retro Futbol Club" <e.retrofutbolclub@gmail.com>', // sender address
+    to: to, // list of receivers
+    subject: "Reserva confirmada - Co-Work", //Subject line
+    html: `<h2>Hola ${to}!</h2>
+    <h4>Tu reserva en nuestra oficina ${table.officeId} fue realizada con éxito!</h4>
+    <p>Fecha de reserva: ${newReservation.day}<p>
+    <p>Turno: ${newReservation.shift}<p>
+    <p>Mesa: ${table.name}<p>
+
+    <p>Si no puede concurrir a la reserva, le pedimos por favor la cancelación de la misma haciendo <a href=${originUrl}/bookings>click aqui</a><p>
+    <h4><b>Saludos!</b></h4>`,
+  });
+}
+
+module.exports = { transporter, sendEmail, resetPasswordEmail, newBookingConfirmationEmail };

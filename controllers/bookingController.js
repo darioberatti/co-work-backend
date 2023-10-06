@@ -1,29 +1,33 @@
+const e = require("express");
 const { Tables, Occupation, Bookings } = require("../models");
 const { Book } = require("../service/bookingServices");
+const {
+  newBookingConfirmationEmail,
+} = require("../config/repositories/mailer");
 
-exports.listReservations = async (req, res) => {
+exports.listReservations = async (req, res, next) => {
   try {
     const response = await Book.showAll();
     res.status(200).send(response);
   } catch (error) {
-    res.status(400).send(error.message);
+    next(error);
   }
 };
 
-exports.listUserReservations = async (req, res) => {
+exports.listUserReservations = async (req, res, next) => {
   const userId = req.params.id;
   try {
     const response = await Book.showByPk(userId);
     res.status(200).send(response);
   } catch (error) {
-    res.status(400).send(error.message);
+    next(error);
   }
 };
 
-exports.addReservation = async (req, res) => {
+exports.addReservation = async (req, res, next) => {
   try {
     const reservationData = req.body;
-    const { userId } = req.user;
+    const { userId, email } = req.user;
 
     //Le asignamos la reserva al usuario
     reservationData.userId = userId;
@@ -63,13 +67,15 @@ exports.addReservation = async (req, res) => {
       await existingOccupation.save();
     }
 
+    newBookingConfirmationEmail(email, newReservation, table);
+
     res.status(201).send(newReservation);
-  } catch (err) {
-    res.status(400).send(error.message);
+  } catch (error) {
+    next(error);
   }
 };
 
-exports.deleteReservations = async (req, res) => {
+exports.deleteReservations = async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -87,7 +93,6 @@ exports.deleteReservations = async (req, res) => {
     const deleted = await Book.deleteReservation(id);
     res.sendStatus(204);
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Error al eliminar reserva");
+    next(error);
   }
 };

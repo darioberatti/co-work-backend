@@ -72,8 +72,8 @@ async function seedDataBase() {
         city: "Córdoba",
         province: "Córdoba",
         country: "Argentina",
-        openingTime: "8:30 hs",
-        closingTime: "20:30 hs",
+        openingTime: "9 hs",
+        closingTime: "18 hs",
         floorsNumber: 2,
         phoneNumber: 3517000137,
         urlImg: [
@@ -89,8 +89,8 @@ async function seedDataBase() {
         city: "Don Bosco",
         province: "Buenos Aires",
         country: "Argentina",
-        openingTime: "8:30 hs",
-        closingTime: "20:30 hs",
+        openingTime: "9 hs",
+        closingTime: "18 hs",
         floorsNumber: 1,
         phoneNumber: 1132211015,
         urlImg: [
@@ -124,6 +124,12 @@ async function seedDataBase() {
         name: `4-A`,
         floor: 4,
         capacity: 4,
+        officeId: 2,
+      },
+      {
+        name: `4-B`,
+        floor: 4,
+        capacity: 6,
         officeId: 3,
       },
     ]);
