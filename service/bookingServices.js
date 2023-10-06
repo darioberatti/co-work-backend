@@ -4,7 +4,7 @@ class Book {
   static async showAll() {
     try {
       return Bookings.findAll({
-        include: "table"
+        include: "table",
       });
     } catch (error) {
       throw new Error(error);
@@ -13,7 +13,7 @@ class Book {
 
   static async showByPk(userId) {
     try {
-      return Bookings.findAll({ where: { userId } });
+      return Bookings.findAll({ where: { userId }, include: "table" });
     } catch (error) {
       throw new Error(error);
     }
@@ -78,8 +78,6 @@ class Book {
       throw new Error(error);
     }
   }
-
-  
 }
 
 module.exports = { Book };
