@@ -4,6 +4,7 @@ const { Book } = require("../service/bookingServices");
 const {
   newBookingConfirmationEmail,
 } = require("../config/repositories/mailer");
+const { Admin } = require("../service/adminServices");
 
 exports.listReservations = async (req, res, next) => {
   try {
@@ -27,7 +28,7 @@ exports.listUserReservations = async (req, res, next) => {
 exports.addReservation = async (req, res, next) => {
   try {
     const reservationData = req.body;
-    const { userId, email } = req.user;
+    const { userId, email, name } = req.user;
 
     //Le asignamos la reserva al usuario
     reservationData.userId = userId;
@@ -67,7 +68,9 @@ exports.addReservation = async (req, res, next) => {
       await existingOccupation.save();
     }
 
-    newBookingConfirmationEmail(email, newReservation, table);
+    const office = await Admin.showByPk(table.officeId)
+
+    newBookingConfirmationEmail(email, name, newReservation, table, office);
 
     res.status(201).send(newReservation);
   } catch (error) {
