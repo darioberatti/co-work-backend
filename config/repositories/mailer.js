@@ -18,7 +18,7 @@ transporter.verify().then(() => console.log("Ready to send email"));
 
 const sendEmail = (to, registerToken) => {
   transporter.sendMail({
-    from: '"Retro Futbol Club" <e.retrofutbolclub@gmail.com>', // sender address
+    from: process.env.EMAIL_ADMIN, // sender address
     to: to, // list of receivers
     subject: "Confirmacion de registro de usuario", //Subject line
     html: `<h2>Hola ${to}! Tu usuario se registro con éxito</h2>
@@ -31,7 +31,7 @@ const sendEmail = (to, registerToken) => {
 
 const resetPasswordEmail = (to, resetToken) => {
   transporter.sendMail({
-    from: '"Retro Futbol Club" <e.retrofutbolclub@gmail.com>', // sender address
+    from: process.env.EMAIL_ADMIN, // sender address
     to: to, // list of receivers
     subject: "Restablecer contraseña Co-Work", //Subject line
     html: `<h2>Hola ${to}!</h2>
@@ -41,13 +41,13 @@ const resetPasswordEmail = (to, resetToken) => {
   });
 };
 
-const newBookingConfirmationEmail =(to , newReservation , table)=>{
+const newBookingConfirmationEmail =(to, recieverName , newReservation , table, office)=>{
   transporter.sendMail({
-    from: '"Retro Futbol Club" <e.retrofutbolclub@gmail.com>', // sender address
+    from: process.env.EMAIL_ADMIN, // sender address
     to: to, // list of receivers
     subject: "Reserva confirmada - Co-Work", //Subject line
-    html: `<h2>Hola ${to}!</h2>
-    <h4>Tu reserva en nuestra oficina ${table.officeId} fue realizada con éxito!</h4>
+    html: `<h2>Hola ${recieverName}!</h2>
+    <h4>Tu reserva en nuestra oficina ${office.name} fue realizada con éxito!</h4>
     <p>Fecha de reserva: ${newReservation.day}<p>
     <p>Turno: ${newReservation.shift}<p>
     <p>Mesa: ${table.name}<p>

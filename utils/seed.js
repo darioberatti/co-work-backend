@@ -1,4 +1,4 @@
-const { Users, Roles, Offices, Floors, Tables } = require("../models");
+const { Users, Roles, Offices, Tables } = require("../models");
 
 async function seedDataBaseRoles() {
   try {
@@ -26,7 +26,7 @@ async function seedDataBase() {
         name: "Admin",
         lastName: "CoWork",
         DNI: 11111111,
-        email: "e.retrofutbolclub@gmail.com",
+        email: process.env.EMAIL_ADMIN ,
         birth: "1998-05-04 11:00:00",
         password: "123456",
         salt: "",
