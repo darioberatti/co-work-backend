@@ -6,6 +6,7 @@ const {
   listUserReservations,
   addReservation,
   deleteReservations,
+  editReservations,
 } = require("../controllers/bookingController");
 
 
@@ -20,5 +21,8 @@ router.post("/", validateUser, addReservation);
 
 //Ruta para eliminar una reserva
 router.delete("/:id", validateUser, deleteReservations);
+
+//Ruta para editar cualquier campo de la reserva.
+router.put("/:id", validateUser, editReservations);
 
 module.exports = router;

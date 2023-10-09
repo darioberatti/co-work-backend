@@ -17,7 +17,7 @@ Booking.init(
     status: {
       type: DataTypes.ENUM,
       defaultValue:"active",
-      values: ["active", "completed"],
+      values: ["active", "completed", "canceled"],
     },
   },
   { sequelize: db, modelName: "booking" }
