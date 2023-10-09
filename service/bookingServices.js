@@ -78,6 +78,20 @@ class Book {
       throw new Error(error);
     }
   }
+
+  static async editReservation(id, bookingData) {
+    try {
+      const booking = await Bookings.findByPk(id);
+
+      if (!booking) throw new Error("Reserva no encontrada");
+
+      const result = await booking.update(bookingData, { returning: true });
+
+      return result;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
 
 module.exports = { Book };

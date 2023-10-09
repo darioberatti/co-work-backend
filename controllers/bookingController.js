@@ -96,3 +96,15 @@ exports.deleteReservations = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.editReservations = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const result = await Book.editReservation(id, req.body);
+    if (!result) return res.status(400).send("Reserva no encontrada");
+    res.status(200).send(result);
+  } catch (error) {
+    next(error);
+  }
+};
