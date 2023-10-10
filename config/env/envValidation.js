@@ -20,6 +20,7 @@ const envValidation = (()=>{
     );
     process.exit(1);
   }
+  return "Variables de entorno validadas correctamente"
 })();
 
 module.exports = {envValidation}
