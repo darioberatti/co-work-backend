@@ -68,7 +68,7 @@ exports.addReservation = async (req, res, next) => {
       await existingOccupation.save();
     }
 
-    const office = await Admin.showByPk(table.officeId)
+    const office = await Admin.showByPk(table.officeId);
 
     newBookingConfirmationEmail(email, name, newReservation, table, office);
 
@@ -104,9 +104,19 @@ exports.editReservations = async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const result = await Book.editReservation(id, req.body);
-    if (!result) return res.status(400).send("Reserva no encontrada");
-    res.status(200).send(result);
+    const canceledReservation = await Book.editReservation(id, req.body);
+    if (!canceledReservation) return res.status(400).send("Reserva no encontrada");
+    
+    const existingOccupation = await Book.getExistingOccupation(
+      canceledReservation.tableId,
+      canceledReservation.day,
+      canceledReservation.shift
+    );
+
+    existingOccupation.actualCapacity += 1;
+    await existingOccupation.save();
+
+    res.status(200).send(canceledReservation);
   } catch (error) {
     next(error);
   }
