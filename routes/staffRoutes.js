@@ -6,6 +6,7 @@ const {
   addUser,
   editUser,
   setPassword,
+  searchResults,
 } = require("../controllers/staffController");
 const { validateUser, validateStaffOrAdmin } = require("../middleware/auth");
 
@@ -23,5 +24,8 @@ router.put("/users/:userId", validateUser, validateStaffOrAdmin, editUser);
 
 //Ruta para que el usuario genere su password.
 router.post("/users/set-password", setPassword);
+
+//Ruta para obtener los usuarios de la búsqueda
+router.get("/users/search/:name",validateUser, validateStaffOrAdmin, searchResults);
 
 module.exports = router;

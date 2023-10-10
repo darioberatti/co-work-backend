@@ -77,3 +77,13 @@ exports.setPassword = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.searchResults = async (req, res, next) => {
+  try {
+    const { name } = req.params;
+    const response = await Staff.getSearchedUsers(name);
+    res.status(200).send(response);
+  } catch (error) {
+    next(error);
+  }
+};
