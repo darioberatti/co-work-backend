@@ -84,7 +84,8 @@ class Book {
       const booking = await Bookings.findByPk(id);
 
       if (!booking) throw new Error("Reserva no encontrada");
-
+      
+      if(booking.status !== "active") throw new Error("El tiempo máximo de anticipación para cancelar es de 2 horas.")
       const result = await booking.update(bookingData, { returning: true });
 
       return result;

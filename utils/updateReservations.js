@@ -6,12 +6,13 @@ const updateCompletedReservations = async () => {
   try {
     const gmtNow = new Date();
     const now = subtractTimeFromDate(gmtNow, 3);
+    const uncancelledReservationTime = addHoursToDate(now, 2)
 
     // Consulta las reservas que ya han sucedido pero que aún no están completadas
     const reservationsToUpdate = await Bookings.findAll({
       where: {
         day: {
-          [Sequelize.Op.lt]: now,
+          [Sequelize.Op.lt]: uncancelledReservationTime,
         },
         status: {
           [Sequelize.Op.eq]: "active",
@@ -33,6 +34,13 @@ function subtractTimeFromDate(objDate, intHours) {
   var numberOfMlSeconds = objDate.getTime();
   var addMlSeconds = intHours * 60 * 60000;
   var newDateObj = new Date(numberOfMlSeconds - addMlSeconds);
+  return newDateObj;
+}
+
+function addHoursToDate(objDate, intHours) {
+  var numberOfMlSeconds = objDate.getTime();
+  var addMlSeconds = intHours * 60 * 60000;
+  var newDateObj = new Date(numberOfMlSeconds + addMlSeconds);
   return newDateObj;
 }
 

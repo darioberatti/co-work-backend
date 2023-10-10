@@ -31,7 +31,7 @@ app.use("/health", (req, res) => {
 // Validacion variables de entorno
 console.log(envValidation);
 
-const intervaloDeActualizacion = 60 * 60 * 1000; // 1 hora en milisegundos
+const intervaloDeActualizacion = 30 * 60 * 1000; // Media hora en milisegundos
 setInterval(updateCompletedReservations, intervaloDeActualizacion);
 
 app.use((err, req, res, next) => {
