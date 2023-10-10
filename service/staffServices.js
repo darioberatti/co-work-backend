@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const { Users } = require("../models");
 
 class Staff {
@@ -52,6 +53,33 @@ class Staff {
     } catch (error) {
       throw new Error(error);
     }
+  }
+
+  static async getSearchedUsers(name) {
+    try {
+      return Users.findAll({
+        where: {
+          [Op.or]: [
+            {
+              name: {
+                [Op.iLike]: `%${name.toLowerCase()}%`,
+              },
+            },
+            {
+              lastName: {
+                [Op.iLike]: `%${name.toLowerCase()}%`,
+              },
+            },
+            {
+              email: {
+                [Op.iLike]: `%${name.toLowerCase()}%`,
+              },
+            },
+          ],
+        },
+        include: "role",
+      });
+    } catch (error) {throw new Error(error)}
   }
 }
 
