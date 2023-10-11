@@ -73,9 +73,19 @@ const newBookingConfirmationEmail = (
   });
 };
 
-module.exports = {
-  transporter,
-  sendEmail,
-  resetPasswordEmail,
-  newBookingConfirmationEmail,
+
+const reservationCancellationToOfficeClosureEmail = (to, reservation) => {
+  transporter.sendMail({
+    from: process.env.EMAIL_ADMIN, 
+    to: to, 
+    subject: "Reserva Cancelada - Oficina Deshabilitada", 
+    html: `<h2>Hola ${to}!</h2>
+    <p>Tu reserva #${reservation.id} ha sido cancelada debido a la deshabilitación de la oficina.</p>
+    <p>Fecha de reserva: ${reservation.day}</p>
+    <p>Turno: ${reservation.shift}</p>
+    <p>Si tienes alguna pregunta o necesitas más información, por favor, contáctanos.</p>
+    <h4><b>Saludos!</b></h4>`,
+  });
 };
+
+module.exports = { transporter, sendEmail, resetPasswordEmail, newBookingConfirmationEmail, reservationCancellationToOfficeClosureEmail };
