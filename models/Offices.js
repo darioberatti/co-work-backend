@@ -32,11 +32,11 @@ Offices.init(
       allowNull: false,
     },
     openingTime: {
-      type: DataTypes.STRING,
+      type: DataTypes.TIME,
       allowNull: true,
     },
     closingTime: {
-      type: DataTypes.STRING,
+      type: DataTypes.TIME,
       allowNull: true,
     },
     floorsNumber: {
