@@ -44,8 +44,6 @@ Para levantar el servidor.
   - Realizar el merge de la rama teniendo como base la develop.
 
 
-## Deploy
-
 
 ## Finalmente
 

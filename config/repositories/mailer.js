@@ -69,7 +69,7 @@ const sendEmail = (to, registerToken) => {
     to: to, // list of receivers
     subject: "Confirmacion de registro de usuario", //Subject line
     html: `<h2>Hola ${to}! Tu usuario se registro con éxito</h2>
-    <a href=${originUrl}/confirm-user/${registerToken}>Redirigir al sitio:</a>
+    <p><a href=${originUrl}/confirm-user/${registerToken}>Haga click aquí</a> para confirmar su contraseña y ya podrá iniciar sesión</p>
     <h4><b>Muchisimas gracias!</b></h4>`,
   });
 };

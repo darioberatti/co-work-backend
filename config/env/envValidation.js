@@ -8,6 +8,7 @@ const envValidation = (()=>{
     "HOST",
     "EMAIL_ADMIN",
     "PASS_ADMIN",
+    "CALENDAR_CREDENTIALS_PATH"
   ];
   const missingEnvVariables = requiredEnvVariables.filter(
     (variable) => !process.env[variable]
