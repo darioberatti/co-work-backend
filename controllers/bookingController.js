@@ -1,10 +1,12 @@
 const e = require("express");
 const { Tables, Occupation, Bookings } = require("../models");
 const { Book } = require("../service/bookingServices");
-const {
-  newBookingConfirmationEmail,
-} = require("../config/repositories/mailer");
 const { Admin } = require("../service/adminServices");
+const { Staff } = require("../service/staffServices")
+const {
+  newBookingConfirmationEmail, reservationCancellationToOfficeClosureEmail
+} = require("../config/repositories/mailer");
+
 
 exports.listReservations = async (req, res, next) => {
   try {
@@ -83,6 +85,10 @@ exports.deleteReservations = async (req, res, next) => {
     const { id } = req.params;
 
     const deletedReservation = await Book.findBooking(id);
+
+    const user = await Staff.showByPk(deletedReservation.userId);
+
+    reservationCancellationToOfficeClosureEmail(user.email, deletedReservation);
 
     const existingOccupation = await Book.getExistingOccupation(
       deletedReservation.tableId,
