@@ -66,10 +66,10 @@ transporter.verify().then(() => console.log("Ready to send email"));
 const sendEmail = (to, registerToken) => {
   transporter.sendMail({
     from: process.env.EMAIL_ADMIN, // sender address
-    to: to, // list of receivers
+    to: to.email, // list of receivers
     subject: "Confirmacion de registro de usuario", //Subject line
-    html: `<h2>Hola ${to}! Tu usuario se registro con éxito</h2>
-    <p><a href=${originUrl}/confirm-user/${registerToken}>Haga click aquí</a> para confirmar su contraseña y ya podrá iniciar sesión</p>
+    html: `<h2>Hola ${to.name} ${to.lastName}! Tu usuario se registro con éxito</h2>
+    <p><a href=${originUrl}/confirm-user/${registerToken}>Haga click aquí</a> para confirmar su contraseña y ya podrá iniciar sesión.</p>
     <h4><b>Muchisimas gracias!</b></h4>`,
   });
 };
@@ -147,14 +147,15 @@ const newBookingConfirmationEmail = (
 };
 
 
-const reservationCancellationToOfficeClosureEmail = (to, reservation) => {
+const reservationCancellationToOfficeClosureEmail = (to, reservation, office) => {
+  const date = reservationDateSetter(reservation.day);
   transporter.sendMail({
     from: process.env.EMAIL_ADMIN, 
-    to: to, 
+    to: to.email, 
     subject: "Reserva Cancelada - Oficina Deshabilitada", 
-    html: `<h2>Hola ${to}!</h2>
-    <p>Tu reserva #${reservation.id} ha sido cancelada debido a la deshabilitación de la oficina.</p>
-    <p>Fecha de reserva: ${reservation.day}</p>
+    html: `<h2>Hola ${to.name}!</h2>
+    <p>Tu reserva #${reservation.id} en ${office.name} ha sido cancelada debido a la deshabilitación de la oficina.</p>
+    <p>Fecha de reserva: ${date}</p>
     <p>Turno: ${reservation.shift}</p>
     <p>Si tienes alguna pregunta o necesitas más información, por favor, contáctanos.</p>
     <h4><b>Saludos!</b></h4>`,
