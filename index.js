@@ -23,6 +23,15 @@ app.use(
   })
 );
 
+// Middleware para cambiar el nombre de la cookie (Deploy)
+const feature = "vercel-feature-flags";
+
+app.use((req, res, next) => {
+  req.cookies.token = req.cookies[feature];
+
+  next();
+});
+
 app.use("/", routes);
 app.use("/health", (req, res) => {
   res.sendStatus(200);

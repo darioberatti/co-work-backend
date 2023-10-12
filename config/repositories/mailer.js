@@ -14,7 +14,7 @@ const auth = new google.auth.GoogleAuth({
 // Crea un evento en el calendario del usuario
 const createEvent = async (eventDetails) => {
   const calendarId =
-    "7d65961f3db75069853c420954506cd2a9d09e1c16fd5cdb84532f4c2d0ecd41@group.calendar.google.com";
+    "8936dd793638bbbbdebe0e7006f3c1e88414984d1a3b9b09d5ed6678513fa147@group.calendar.google.com";
 
   try {
     const calendar = google.calendar({ version: "v3", auth });
@@ -87,9 +87,7 @@ const resetPasswordEmail = (to, resetToken) => {
   });
 };
 
-
-
-//Mail confirmando reserva de turno
+//Mail confirmando reserva de turno y creando evento en calendar
 
 const newBookingConfirmationEmail = (
   to,
@@ -98,7 +96,6 @@ const newBookingConfirmationEmail = (
   table,
   office
 ) => {
-
   const reservationTime =
     newReservation.shift === "mañana"
       ? `${office.openingTime.slice(0, 5)} a 13:00hs`
@@ -121,18 +118,18 @@ const newBookingConfirmationEmail = (
     <p>Si no puede concurrir a la reserva, le pedimos por favor la cancelación de la misma hasta dos horas antes haciendo <a href=${originUrl}/bookings>click aqui</a><p>
     <h4><b>Saludos!</b></h4>`,
   });
-    // Setea la hora de finalización (4hs después del inicio)
+
+  // Setea la hora de finalización (4hs después del inicio)
   const startTime = new Date(newReservation.day.getTime() + 180 * 60 * 1000); //Se le agregan 3 hs porque la zona horaria BsAs le resta 3 hs
-  //console.log("START TIME", startTime);
   const endTime = new Date(startTime.getTime() + 240 * 60 * 1000);
-  //console.log("END TIME", endTime);
   const formattedEndTime = endTime.toISOString();
-  //console.log("FORMATED END TIME", formattedEndTime);
+
+  const description = `Espacio de trabajo reservado en la mesa ${table.name} de ${office.name}. Dirección de la oficina: ${office.address} - ${office.city} - ${office.province}`;
 
   //Setea los detalles del evento creado en Calendar
   const eventDetails = {
     summary: "Reserva de Co-Work",
-    description: "Detalles de la reserva",
+    description: description,
     start: {
       dateTime: startTime.toISOString(), //Setea hora de inicio
       timeZone: "America/Argentina/Buenos_Aires",
@@ -146,12 +143,11 @@ const newBookingConfirmationEmail = (
   createEvent(eventDetails);
 };
 
-
 const reservationCancellationToOfficeClosureEmail = (to, reservation) => {
   transporter.sendMail({
-    from: process.env.EMAIL_ADMIN, 
-    to: to, 
-    subject: "Reserva Cancelada - Oficina Deshabilitada", 
+    from: process.env.EMAIL_ADMIN,
+    to: to,
+    subject: "Reserva Cancelada - Oficina Deshabilitada",
     html: `<h2>Hola ${to}!</h2>
     <p>Tu reserva #${reservation.id} ha sido cancelada debido a la deshabilitación de la oficina.</p>
     <p>Fecha de reserva: ${reservation.day}</p>
@@ -161,6 +157,10 @@ const reservationCancellationToOfficeClosureEmail = (to, reservation) => {
   });
 };
 
-
-module.exports = { transporter, sendEmail, resetPasswordEmail, newBookingConfirmationEmail, reservationCancellationToOfficeClosureEmail };
-
+module.exports = {
+  transporter,
+  sendEmail,
+  resetPasswordEmail,
+  newBookingConfirmationEmail,
+  reservationCancellationToOfficeClosureEmail,
+};
