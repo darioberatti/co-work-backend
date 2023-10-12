@@ -39,7 +39,7 @@ exports.addUser = async (req, res, next) => {
     const payload = { userId: result.id, email: result.email };
     const registerToken = generateToken(payload);
 
-    sendEmail(payload.email, registerToken);
+    sendEmail(result, registerToken);
 
     res.status(201).send(result);
   } catch (error) {

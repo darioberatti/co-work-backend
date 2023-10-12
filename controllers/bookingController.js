@@ -88,7 +88,11 @@ exports.deleteReservations = async (req, res, next) => {
 
     const user = await Staff.showByPk(deletedReservation.userId);
 
-    reservationCancellationToOfficeClosureEmail(user.email, deletedReservation);
+    const table = await Book.getTable(deletedReservation.tableId);
+
+    const office = await Admin.showByPk(table.officeId);
+
+    reservationCancellationToOfficeClosureEmail(user, deletedReservation, office);
 
     const existingOccupation = await Book.getExistingOccupation(
       deletedReservation.tableId,
@@ -96,7 +100,7 @@ exports.deleteReservations = async (req, res, next) => {
       deletedReservation.shift
     );
 
-    existingOccupation.actualCapacity += 1;
+    existingOccupation.actualCapacity = existingOccupation.maxCapacity;
     await existingOccupation.save();
 
     const deleted = await Book.deleteReservation(id);
