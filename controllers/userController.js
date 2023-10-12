@@ -7,7 +7,7 @@ exports.login = async (req, res, next) => {
 
   try {
     const user = await User.findByEmail(email);
-   
+
     if (!user) return res.status(401).send("Credenciales inválidas");
     if (user.status === "disabled")
       return res
@@ -31,12 +31,11 @@ exports.login = async (req, res, next) => {
       roleId: user.roleId,
       role: user.role.name,
     };
-   
 
     const token = generateToken(payload);
-  
 
-    res.cookie("token", token);
+    res.cookie("token", token, { sameSite: "none", secure: true }); //Configuración de cookie para el deploy
+
     res.send(payload);
   } catch (error) {
     next(error);
