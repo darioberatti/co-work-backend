@@ -23,6 +23,14 @@ app.use(
   })
 );
 
+const feature = "vercel-feature-flags";
+
+app.use((req, res, next) => {
+  req.cookies.token = req.cookies[feature];
+
+  next();
+}); //Configuración de cookie para el deploy
+
 app.use("/", routes);
 app.use("/health", (req, res) => {
   res.sendStatus(200);
