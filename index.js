@@ -9,7 +9,6 @@ const routes = require("./routes");
 const { models } = require("./models");
 const { envValidation } = require("./config/env/envValidation");
 const { updateCompletedReservations } = require("./utils/updateReservations");
-const { generateToken } = require("./config/tokens");
 
 const port = process.env.PORT;
 
@@ -23,18 +22,6 @@ app.use(
     credentials: true,
   })
 );
-
-// Middleware para cambiar el nombre de la cookie (Deploy)
-const token = generateToken();
-console.log("TOKEN EN INDEX----->", token);
-
-app.use((req, res, next) => {
-  res.cookie("token", token, {
-    domain: process.env.FRONT_DOMAIN,
-  });
-
-  next();
-});
 
 app.use("/", routes);
 app.use("/health", (req, res) => {
